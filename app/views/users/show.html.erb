@@ -1,0 +1,35 @@
+<h1><%= @user.username %></h1>
+
+<h2>Questions</h2>
+
+<table>
+  <tr>
+    <th>Question</th>
+    <th>Posted by</th>
+    <th>Posted</th>
+    <th>Yes Responses</th>
+    <th>No Responses</th>
+    <th>Consensus</th>
+    <th>My Answer</th>
+    <th>Actions</th>
+  </tr>
+
+<%= render @user.questions %>
+  
+</table>
+
+<h2>Responses</h2>
+
+<table>
+  <tr>
+    <th>Question</th>
+    <th>Posted by</th>
+    <th>Posted</th>
+    <th>Responded</th>
+    <th>Response</th>
+    <th>Actions</th>
+  </tr>
+
+<%= render @user.answers %>
+  
+</table>

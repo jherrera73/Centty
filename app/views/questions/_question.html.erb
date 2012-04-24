@@ -1,0 +1,25 @@
+<tr>
+  <td><%= link_to question.title, question_path(question) %></td>
+  <td><%= link_to question.user.username, user_path(question.user) %></td>
+  <td><%= time_ago_in_words(question.created_at) %> ago</td>
+  <td><%= question.yes_responses %></td>
+  <td><%= question.no_responses %></td>
+  <td><%= question.consensus %></td>
+  <td><%= answer_text(question.my_answer(current_user)) %></td>
+  <td>
+    <%= link_to "YES",
+        question_answer_yes_path(question),
+        :method => :post %> | 
+    <%= link_to "NO",
+        question_answer_no_index_path(question),
+        :method => :post %> | 
+    <% if question.my_answer(current_user) %>
+      <%= link_to "CLEAR",
+            answer_path(question.my_answer(current_user)),
+            :method => :delete %> 
+    <% end %>
+    <% if question.user == current_user %>
+      | <%= link_to "Remove", question_path(question), :method => :delete, :confirm => "Are you sure?" %>
+    <% end %>
+  </td>
+</tr>

@@ -1,0 +1,20 @@
+<h1>Listing users</h1>
+
+<table>
+  <tr>
+    <th>Username</th>
+    <th>Created</th>
+    <th>Total Questions</th>
+    <th>Total Responses</th>
+  </tr>
+
+<% @users.each do |user| %>
+  <tr>
+    <td><%= link_to user.username, user_path(user) %></td>
+    <td><%= time_ago_in_words(user.created_at) %> ago</td>
+    <td><%= user.total_questions %></td>
+    <td><%= user.total_responses %></td>
+  </tr>
+<% end %>
+
+</table>

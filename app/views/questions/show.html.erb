@@ -1,0 +1,54 @@
+<p>
+  <b>Posted by:</b>
+  <%= @question.user.username %>
+</p>
+
+<p>
+  <b>Title:</b>
+  <%= @question.title %>
+</p>
+
+<p>
+  <b>Yes Responses:</b>
+  <%= @question.yes_responses %>
+</p>
+
+<p>
+  <b>No Responses:</b>
+  <%= @question.no_responses %>
+</p>
+
+<p>
+  <b>Consensus:</b>
+  <%= @question.consensus %>
+</p>
+
+<p>
+  <b>Hashtags:</b>
+  <%= @question.tag_list %>
+</p>
+
+<h2>Responses</h2>
+
+<table>
+  <tr>
+    <th>Responsed By</th>
+    <th>Responded</th>
+    <th>Response</th>
+    <th>Actions</th>
+  </tr>
+
+  <% @question.answers.each do |answer| %>
+    <tr>
+      <td><%= link_to answer.user.username, user_path(answer.user) %></td>
+      <td><%= time_ago_in_words(answer.created_at) %> ago</td>
+      <td><%= answer.response ? "Yes" : "No" %></td>
+      <td>
+        <% if answer.user == current_user %>
+          <%= link_to "Remove", answer_path(answer), :method => :delete, :confirm => "Are you sure?" %>
+        <% end %>
+      </td>
+    </tr>
+  <% end %>
+  
+</table>
