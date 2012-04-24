@@ -12,9 +12,9 @@
         :method => :post %> | 
     <%= link_to "NO",
         question_answer_no_index_path(question),
-        :method => :post %> | 
+        :method => :post %>
     <% if question.my_answer(current_user) %>
-      <%= link_to "CLEAR",
+      | <%= link_to "CLEAR",
             answer_path(question.my_answer(current_user)),
             :method => :delete %> 
     <% end %>

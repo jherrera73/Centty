@@ -5,6 +5,7 @@ class AnswerNoController < ApplicationController
    
   def create
     @answer = @question.answers.build(:response => false, :user_id => current_user)
+    @answer.user = current_user
     @answer.save
     
     respond_to do |format|
