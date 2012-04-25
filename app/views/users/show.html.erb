@@ -14,9 +14,11 @@
     <th>Actions</th>
   </tr>
 
-<%= render @user.questions %>
+<%= render @questions %>
   
 </table>
+
+<%= will_paginate @questions, :param_name => 'questions_page' %>
 
 <h2>Responses</h2>
 
@@ -30,6 +32,8 @@
     <th>Actions</th>
   </tr>
 
-<%= render @user.answers %>
+<%= render @answers %>
   
 </table>
+
+<%= will_paginate @answers, :param_name => 'answers_page' %>

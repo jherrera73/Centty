@@ -25,7 +25,11 @@ class QuestionsController < ApplicationController
   # GET /questions/1
   # GET /questions/1.json
   def show
+    
+    per_page = 15
+    
     @question = Question.find(params[:id])
+    @answers = @question.answers.paginate :per_page => per_page, :page => params[:page]
 
     respond_to do |format|
       format.html # show.html.erb

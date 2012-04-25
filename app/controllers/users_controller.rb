@@ -23,7 +23,12 @@ class UsersController < ApplicationController
   end
   
   def show
+    
+    per_page = 15
+    
     @user = User.find(params[:id])
+    @questions = @user.questions.paginate :per_page => per_page, :page => params[:questions_page]
+    @answers = @user.answers.paginate :per_page => per_page, :page => params[:answers_page]
 
     respond_to do |format|
       format.html # show.html.erb

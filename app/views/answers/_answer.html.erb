@@ -1,5 +1,5 @@
 <tr>
-  <td><%= answer.question.title %></td>
+  <td><%= link_to answer.question.title, question_path(answer.question) %></td>
   <td><%= link_to answer.question.user.username, user_path(answer.question.user) %></td>
   <td><%= time_ago_in_words(answer.question.created_at) %> ago</td>
   <td><%= time_ago_in_words(answer.created_at) %></td>
