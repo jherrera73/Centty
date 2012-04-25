@@ -6,9 +6,16 @@ class QuestionsController < ApplicationController
   # GET /questions
   # GET /questions.json
   def index
-
-    @questions = Question.all
-  
+    
+    per_page = 15
+    
+    if params[:search].blank?
+      @questions = Question.paginate :per_page => per_page, :page => params[:page]
+    else
+      tags = params[:search].strip.split(' ')
+      @questions = Question.tagged_with(tags, :any => true).paginate :per_page => per_page, :page => params[:page]
+    end
+    
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @questions }

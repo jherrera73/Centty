@@ -6,6 +6,7 @@ gem 'heroku'
 gem 'annotate' 
 gem 'authlogic'
 gem 'thin'
+gem 'will_paginate'
 
 gem 'rails', '3.2.1'
 

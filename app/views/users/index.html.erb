@@ -1,5 +1,14 @@
 <h1>Listing users</h1>
 
+<%= form_tag users_path, :method => 'get' do %>
+  <p style="text-align: center; padding-top: 10px">
+	  Search Users by username:
+	  <%= text_field_tag :search, params[:search] %>
+	  &nbsp;
+	  <%= submit_tag "Search", :name => nil %>
+	</p>
+<% end %>
+
 <table>
   <tr>
     <th>Username</th>
@@ -18,3 +27,5 @@
 <% end %>
 
 </table>
+
+<%= will_paginate @users %>

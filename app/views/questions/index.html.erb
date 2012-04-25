@@ -1,5 +1,14 @@
 <h1>Listing questions</h1>
 
+<%= form_tag questions_path, :method => 'get' do %>
+  <p style="text-align: center; padding-top: 10px">
+	  Search Questions by Tag(s):
+	  <%= text_field_tag :search, params[:search] %>
+	  &nbsp;
+	  <%= submit_tag "Search", :name => nil %>
+	</p>
+<% end %>
+
 <table>
   <tr>
     <th>Question</th>
@@ -15,3 +24,5 @@
 <%= render @questions %>
   
 </table>
+
+<%= will_paginate @questions %>

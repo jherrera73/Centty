@@ -3,7 +3,23 @@ class UsersController < ApplicationController
   before_filter :authenticate, :only => [:edit, :update]
 
   def index
-    @users = User.all
+    
+    per_page = 15
+    
+    if params[:search].blank?
+      @users = User.paginate :per_page => per_page, :page => params[:page]
+    else
+      search_string = params[:search]
+      @users = User.paginate :per_page => per_page, 
+                             :conditions => ['username like ?', "#{search_string}%"], 
+                             :page => params[:page]
+    end
+    
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: @users }
+    end
+    
   end
   
   def show
