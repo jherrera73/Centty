@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
 
-  before_filter :authenticate, :only => [:edit, :update]
+  before_filter :authenticate
 
   def index
     
@@ -26,7 +26,12 @@ class UsersController < ApplicationController
     
     per_page = 15
     
-    @user = User.find(params[:id])
+    if params[:id]
+      @user = User.find(params[:id])
+    else
+      @user = User.find_by_username(params[:username])
+    end
+    
     @questions = @user.questions.paginate :per_page => per_page, :page => params[:questions_page]
     @answers = @user.answers.paginate :per_page => per_page, :page => params[:answers_page]
     @following = @user.following.paginate :per_page => per_page, :page => params[:following_page]

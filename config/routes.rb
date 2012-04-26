@@ -19,7 +19,9 @@ Centty::Application.routes.draw do
   match '/logout', :to => 'user_sessions#destroy'
 
   root :to => 'pages#home'
-
+  
+  match '/:username', :controller => 'users', :action => 'show', :as => 'profile_link'
+  
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

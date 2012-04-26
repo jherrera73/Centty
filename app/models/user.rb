@@ -22,6 +22,8 @@ class User < ActiveRecord::Base
   
   after_create :enable_api!
   
+  validate :excluded_login
+  
   def following?(followed)
     relationships.find_by_followed_id(followed)
   end
@@ -74,6 +76,12 @@ class User < ActiveRecord::Base
 
   def generate_api_key!
     update_column(:api_key, secure_digest(Time.now, (1..10).map{ rand.to_s }))
+  end
+  
+  def excluded_login
+    %w( admin root administrator superuser answer_no answer_yes answers application pages questions relationships user_sessions users ).each do |reserved_login|
+      errors.add(:username, "is reserved") if username.downcase == reserved_login
+    end
   end
   
 end

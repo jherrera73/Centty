@@ -1,5 +1,9 @@
 <h1><%= @user.username %></h1>
 
+<p>
+  <strong>Personal URL:</strong> centty.com/<%= @user.username %>
+</p>
+
 <% unless current_user?(@user) %>
 		<% if current_user.following?(@user) %>
 			You are following this user.
