@@ -1,5 +1,26 @@
 <h1><%= @user.username %></h1>
 
+<% unless current_user?(@user) %>
+		<% if current_user.following?(@user) %>
+			You are following this user.
+			
+			<%= form_for current_user.relationships.find_by_followed_id(@user), 
+      				:html => { :method => :delete } do |f| %>
+      	<div class="actions"><%= f.submit "Unfollow" %></div>
+      <% end %>
+      
+		<% else %>
+			You are not following this user.
+			
+			<%= form_for current_user.relationships.build(:followed_id => @user.id) do |f| %>
+      	<div><%= f.hidden_field :followed_id %></div>
+      	<div class="actions"><%= f.submit "Follow" %></div>
+      <% end %>
+      
+		<% end%>
+<% end %>
+
+
 <h2>Questions</h2>
 
 <table>
@@ -37,3 +58,37 @@
 </table>
 
 <%= will_paginate @answers, :param_name => 'answers_page' %>
+
+<h2>Followers</h2>
+
+<table>
+  <tr>
+    <th>Username</th>
+  </tr>
+
+  <% @followers.each do |user| %>
+    <tr>
+      <td><%= link_to user.username, user_path(user) %></td>
+    </tr>
+  <% end %>
+
+</table>
+
+<%= will_paginate @followers, :param_name => 'followers_page' %>
+
+<h2>Following</h2>
+
+<table>
+  <tr>
+    <th>Username</th>
+  </tr>
+
+  <% @following.each do |user| %>
+    <tr>
+      <td><%= link_to user.username, user_path(user) %></td>
+    </tr>
+  <% end %>
+
+</table>
+
+<%= will_paginate @following, :param_name => 'following_page' %>

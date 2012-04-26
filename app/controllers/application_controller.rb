@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
     
-  helper_method :current_user, :ensure_not_answered, :answer_text
+  helper_method :current_user, :current_user?, :ensure_not_answered, :answer_text
   
   private
   
@@ -17,6 +17,10 @@ class ApplicationController < ActionController::Base
   def current_user
     return @current_user if defined?(@current_user)
     @current_user = current_user_session && current_user_session.record
+  end
+  
+  def current_user?(user)
+    user == current_user
   end
   
   def ensure_not_answered

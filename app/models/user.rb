@@ -2,13 +2,37 @@ class User < ActiveRecord::Base
   acts_as_authentic
   
   has_many :questions, :dependent => :destroy
+  
   has_many :answers
+  
+  has_many :relationships, :foreign_key => "follower_id", 
+                           :dependent => :destroy
+                           
+  has_many :following, :through => :relationships, :source => :followed
+  
+  has_many :reverse_relationships, :foreign_key => "followed_id",
+                                   :class_name => "Relationship",
+                                   :dependent => :destroy
+                                   
+  has_many :followers, :through => :reverse_relationships, :source => :follower
   
   default_scope :order => 'username ASC'
   
   attr_accessible :username, :password, :password_confirmation
   
   after_create :enable_api!
+  
+  def following?(followed)
+    relationships.find_by_followed_id(followed)
+  end
+  
+  def follow!(followed)
+    relationships.create!(:followed_id => followed.id)
+  end
+  
+  def unfollow!(followed)
+    relationships.find_by_followed_id(followed).destroy
+  end
   
   def enable_api!
     generate_api_key!
@@ -28,6 +52,14 @@ class User < ActiveRecord::Base
   
   def total_responses
     answers.count
+  end
+  
+  def total_followers
+    followers.count
+  end
+  
+  def total_following
+    following.count
   end
   
   private

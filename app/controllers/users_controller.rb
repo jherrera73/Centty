@@ -29,7 +29,9 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @questions = @user.questions.paginate :per_page => per_page, :page => params[:questions_page]
     @answers = @user.answers.paginate :per_page => per_page, :page => params[:answers_page]
-
+    @following = @user.following.paginate :per_page => per_page, :page => params[:following_page]
+    @followers = @user.followers.paginate :per_page => per_page, :page => params[:followers_page]
+    
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @user }

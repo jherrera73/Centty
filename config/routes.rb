@@ -1,5 +1,7 @@
 Centty::Application.routes.draw do
 
+  resources :relationships,  :only => [:create, :destroy]
+  
   resources :questions do
     resources :answer_yes, :only => [:create]
     resources :answer_no, :only => [:create]
@@ -7,13 +9,10 @@ Centty::Application.routes.draw do
   
   resources :answers, :only => [:destroy]
 
-  get "user_sessions/new"
-
   get "pages/home"
 
   resources :users
   
-
   resources :user_sessions, :only => [:new, :create, :destroy]
   
   match '/login', :to => 'user_sessions#new'
