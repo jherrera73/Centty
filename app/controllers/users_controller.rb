@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
 
-  before_filter :authenticate
+  before_filter :authenticate, :except => [:new, :create]
 
   def index
     

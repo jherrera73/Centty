@@ -18,7 +18,7 @@ class User < ActiveRecord::Base
   
   default_scope :order => 'username ASC'
   
-  attr_accessible :username, :password, :password_confirmation
+  attr_accessible :email, :username, :password, :password_confirmation
   
   after_create :enable_api!
   
@@ -97,5 +97,6 @@ end
 #  api_key           :string(255)
 #  created_at        :datetime        not null
 #  updated_at        :datetime        not null
+#  email             :string(255)
 #
 
